@@ -1,0 +1,104 @@
+{
+    "items": [
+        {
+            "name": "cheetos",
+            "price": 1.25,
+            "image": "../images/Cheetos.png"
+        },
+        {
+            "name": "fritos",
+            "price": 1.5,
+            "image": "../images/Fritos.png"
+        },
+        {
+            "name": "sun chips",
+            "price": 1.25,
+            "image": "../images/SunChips.png"
+        },
+        { 
+            "name": "trident gum",
+            "price": 0.75,
+            "image": "../images/TridentGum.png"
+        },
+        {
+            "name": "general gum",
+            "price": 0.75,
+            "image": "../images/GeneralGum.png"
+        },
+        {
+            "name": "skittles",
+            "price": 1.5,
+            "image": "../images/Skittles.png"
+        },
+        {
+            "name": "3 musketeers",
+            "price": 1.25,
+            "image": "../images/Musketeers.png"
+        },
+        {
+            "name": "snickers",
+            "price": 1.25,
+            "image": "../images/Snickers.png"
+        },
+        {
+            "name": "crunch",
+            "price": 1.25,
+            "image": "../images/Crunch.png"
+        },
+        {
+            "name": "twix",
+            "price": 1.50,
+            "image": "../images/Twix.png"
+        },
+        {
+            "name": "milky way",
+            "price": 1.5,
+            "image": "../images/MilkyWay.png"
+        },
+        {
+            "name": "M&M's",
+            "price": 1,
+            "image": "../images/mm.png"
+        },
+        {
+            "name": "swedish fish",
+            "price": 1.5,
+            "image": "../images/SwedishFish.png" 
+        },
+        {
+            "name": "ruffles",
+            "price": 1.75,
+            "image": "../images/Ruffles.png" 
+        },
+        {
+            "name": "mike and ikes",
+            "price": 1.5,
+            "image": "../images/MikeAndIkes.png" 
+        },
+        {
+            "name": "hershey chocolate",
+            "price": 1.25,
+            "image": "../images/Hersheys.png" 
+        },
+        {
+            "name": "hershey cookies & cream",
+            "price": 1,
+            "image": "../images/HersheysCookiesAndCream.png" 
+        },
+        {
+            "name": "magnum condums",
+            "price": 2.5,
+            "image": "../images/MagnumCondoms.png" 
+        },
+        {
+            "name": "white cheddar popcorn",
+            "price": 1.75,
+            "image": "../images/WhiteCheddar.png" 
+        },
+        {
+            "name": "kettle corn popcorn",
+            "price": 1.75,
+            "image": "../images/KettleCorn.png" 
+        }
+    ]
+}
