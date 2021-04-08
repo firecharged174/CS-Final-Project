@@ -13,9 +13,11 @@ public class Queue<T> implements Serializable
 { 
     private static final long serialVersionUID = 7721226330051047789L;
 
-    private int size;
-    private T first;  //beginning of queue
-    private T last;   //end of queue
+    private Object [] queue;
+    private int size; 
+    private int capacity;  //max capacity of queue
+    private int first; // front of queue
+    private int last;   //end of queue
     private static final int DEFAULT_CAPACITY = 8;
 
     /**
@@ -26,9 +28,9 @@ public class Queue<T> implements Serializable
     }
 
     public Queue(int initialCapacity) {
-        size = initialCapacity;
-        first = null;
-        last = null;
+        capacity = initialCapacity;
+        queue = new Object[initialCapacity];
+		size = 0;
     }
 
     /**
@@ -52,7 +54,13 @@ public class Queue<T> implements Serializable
      * @return true if successful
      */
     public boolean add(T obj) {
-        return false; //temp to see other errors
+        if (size == capacity-1) {
+            resizeArray(capacity*2);
+        }
+        queue[last] = obj;
+        last = (last + 1)%capacity;
+        size++;
+        return true;
     }
 
     /**
@@ -75,18 +83,26 @@ public class Queue<T> implements Serializable
         if(isEmpty()) {
             throw new NoSuchElementException();
         }
-        return null; //temp
+        T temp = peek();
+		for (int i = 0; i < size-1; i++) {
+			queue[i] = queue[i+1];
+		}
+		queue[last] = null;
+		last = (last - 1)%capacity;
+		size--;
+        return temp;
     }
 
     /**
      * Returns the first item in the queue without removing it.
      * @return the head of queue
      */
+    @SuppressWarnings("unchecked")
     public T element() {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
-        return null; //temp
+        return (T)queue[first];
     }
     
     /**
@@ -117,7 +133,28 @@ public class Queue<T> implements Serializable
      * Clears the queue
      */
     public void clear() {
-        first = null;
-        size = 0;
-    }  // We can do this using arrays(easier) or linkedlist ... arrayqueue or linkedqueue 
+        for(int i = 0; i <= size; i++) {
+    		queue[i] = null;
+			queue[last] = null;
+	   }
+		size = 0;
+    }  
+    
+    /**
+     * Resizes the queue
+     */
+    private void resizeArray(int newCapacity) {
+        Object [] arr = new Object[newCapacity];
+        int index = first;
+        int i = 0;
+        while (index != last) {
+            arr[i] = queue[index];
+            i++;
+            index = (index + 1)%capacity;
+        }
+        first = 0;
+        last = size;
+        capacity = newCapacity;
+    }    
+    // We can do this using arrays or linkedlist ... arrayqueue or linkedqueue 
 }
