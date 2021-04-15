@@ -4,24 +4,26 @@ Update as necessary or when something is finished
 **TODO:
 [] Refactor and clean up code, if and where necessary.
 [] Make useful error messages.
+[] Switch to JavaFX when this is done. (optional)
 
 
 **TODO: VendingMachine.java
-[] Randomize all the buttons for each player upon new account creation
+[❌] Randomize all the buttons for each player upon new account creation
 [] Load all the buttons when a player starts.
 [] Adjust images with photoshop, or find way to scale them to the buttons (if we're lazy we can just use text)
 [] Add the rest of the buttons. 
-[] Use panels as a way of placing all the buttons (optional)
+[] Replace JButtons with image window type thing (optional)
 [] Make it look good (optional)
 
 
 **TODO: Login.java
-[] Sign in: look through player.dat for correct player name
-[] Sign In: only players with an account can log in, otherwise, display error.
-[] New account: throws IOException. Fix this.
-[] New Account: check if name is a bad word (optional)
+[❌] Sign in: look through player.dat for correct player name
+[❌] Sign In: only players with an account can log in, otherwise, display error.
+[] Sign In: does not recognize old players.
+[❌] New account: throws IOException. Fix this.
 [] Create fillQueue() to fill a Queue with Item objects from item.dat
-[] Set active user when signing in, active user is null in VendingMachine.java 
+[❌] Set active user when signing in, active user is null in VendingMachine.java 
+[] New Account: check if name is a bad word (optional)
 
 
 **TODO: items.json
@@ -30,7 +32,15 @@ Update as necessary or when something is finished
 
 **TODO: FillItems.java 
 [❌] Fill up items.dat with Item objects added by us seperately
-[] Fix whole thing. Like the paths and the maaven thing.
+[] Fix whole thing. Like the paths and the maven thing.
+[] Forget about the json and just read from a txt file where each line is all the information, ie:
+    name
+    image icon location
+    price
+    another name
+    another file location
+    price gouging
+    etc
 [] Make sure it works.
 
 

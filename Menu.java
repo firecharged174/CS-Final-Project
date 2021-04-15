@@ -12,9 +12,12 @@ public class Menu extends JFrame
 {
     private static final long serialVersionUID = 745882847123195643L;
     
-    JButton startButton, loginButton, aboutButton, exitButton;
-    JLabel playerLabel = new JLabel("You must login to start");
-    Login login = new Login();
+    private JButton startButton, loginButton, aboutButton, exitButton;
+    private JLabel playerLabel = new JLabel("You must login to start");
+
+    Login login;
+    VendingMachine vm;
+    Player player;
     
     /**
      * Menu for the game.
@@ -22,6 +25,8 @@ public class Menu extends JFrame
      */
     Menu() 
     {
+        login = new Login(this);
+        
         // Creates new buttons for the frame //
         //Login button
         loginButton = new JButton("Login");
@@ -30,6 +35,7 @@ public class Menu extends JFrame
 
             //Creates an instane of a login frame
             login.setVisible(true);
+            this.setVisible(false);
 
         });
 
@@ -41,19 +47,19 @@ public class Menu extends JFrame
             // Check for active user
             if (login.getLoggedIn() == false || login.getActiveUser() == null) {
                 JOptionPane.showMessageDialog (
-
                     null, 
                     "Please login to play the game.", 
                     "Error", 
                     JOptionPane.CLOSED_OPTION
-
                 );
-            } else {
-                //Starts the game
-                new VendingMachine().setVisible(true);
-                this.setVisible(false);
+                return;
             }
-
+            
+            //Starts the game
+            vm = new VendingMachine(this);
+            vm.setVisible(true);
+            this.setVisible(false);
+            
         });
 
         //About button displays how to play the game
@@ -62,13 +68,12 @@ public class Menu extends JFrame
         aboutButton.addActionListener((e) -> {
 
             JOptionPane.showMessageDialog(
-                
                 this, 
                 "Vending Machine Simulator\n\nMade by:\nZane Yankalunas\nCory Berger\nAvin Patel\n\nHow to play:\nStart by logging in or creating a new account.\nStarting the game will generate or load a custom vending machine and a random amount of money.\nUse your momey to buy things by clicking on the images.\nCheck your wallet and invetory at any time by clicking 'Backpack'\n\nSubscribe",
                 "About",
                 JOptionPane.CLOSED_OPTION
-
             );
+
         });
 
         //Exit button, to exit the game. What else would it do
@@ -102,7 +107,7 @@ public class Menu extends JFrame
 
         });
 
-        if(login.getLoggedIn()) {
+        if (login.getLoggedIn()) {
             playerLabel.setText("You are logged in as:\n" + login.getActiveUser().getPlayerName());
         }
 
@@ -120,5 +125,14 @@ public class Menu extends JFrame
         this.add(loginButton);
         this.add(aboutButton);
         this.add(exitButton);
-    }    
+        this.add(playerLabel);
+    } 
+    
+    /**
+     * Returns the active user from Login.java
+     * @return active player
+     */
+    public Player getPlayer() {
+        return login.getActiveUser();
+    }
 }

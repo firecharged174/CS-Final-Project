@@ -83,7 +83,6 @@ public class Player implements Serializable
     public void setVendingMachineSlots(ArrayList<Queue<Item>> vendingMachineSlots) {
         this.vendingMachineSlots = vendingMachineSlots;
     }
-
     public ArrayList<Queue<Item>> getVendingMachineSlots() {
         return vendingMachineSlots;
     }

@@ -14,10 +14,11 @@ public class VendingMachine extends JFrame
     private static final long serialVersionUID = -6981507101762460021L;
 
     //The active user
-    Player activeUser = new Login().getActiveUser();
+    Player activeUser;
+    ArrayList<Item> inventory;
 
     //Frame Icon
-    ImageIcon frameIcon = new ImageIcon("./images/Vendingmachine.jpg");
+    private static ImageIcon frameIcon = new ImageIcon("./images/Vendingmachine.jpg");
 
     // Buttons
     private JButton a1, a2, a3;
@@ -28,19 +29,19 @@ public class VendingMachine extends JFrame
     private JButton backpackButon;
 
     // Queues for each button
-    private ArrayList<Queue<Item>> slots = activeUser.getVendingMachineSlots();
+    private ArrayList<Queue<Item>> slots;;
     private Queue<Item> queue_a1;
     private Queue<Item> queue_a2;
     private Queue<Item> queue_a3;
-    private Queue<Item> queue_b1;
-    private Queue<Item> queue_b2;
-    private Queue<Item> queue_b3;
-    private Queue<Item> queue_c1;
-    private Queue<Item> queue_c2;
-    private Queue<Item> queue_c3;
-    private Queue<Item> queue_d1;
-    private Queue<Item> queue_d2;
-    private Queue<Item> queue_d3;
+    private Queue<Item> queue_b1; 
+    private Queue<Item> queue_b2; 
+    private Queue<Item> queue_b3; 
+    private Queue<Item> queue_c1; 
+    private Queue<Item> queue_c2; 
+    private Queue<Item> queue_c3; 
+    private Queue<Item> queue_d1; 
+    private Queue<Item> queue_d2; 
+    private Queue<Item> queue_d3; 
 
     private int response;
 
@@ -56,7 +57,14 @@ public class VendingMachine extends JFrame
      * Main GUI frame. Add all buttons and labels and textboxes here, somehow
      * What belongs in this class and what belongs in index and how to use each where they are?
      */
-    VendingMachine() {
+    VendingMachine(Menu menu) 
+    {
+        //Prepares the game
+        setPlayer(menu.getPlayer());
+        slots = activeUser.getVendingMachineSlots();
+        setQueues(slots);
+        inventory = activeUser.getPlayerInventory();
+
         /** Create new button buttons **/
         // Button for slot A1
         a1 = new JButton();
@@ -73,10 +81,8 @@ public class VendingMachine extends JFrame
 
             if(response == JOptionPane.YES_OPTION) {
                 System.out.println("Cheetos selected"); 
-                //Remove from queue
-                //Subtract from player's cash
-                //Update queue, and arraylist for the player
-                //Display new item
+                
+                updateButton(a1, queue_a1);
             } else {
                 System.out.println("Selection canceled"); 
             }
@@ -97,6 +103,8 @@ public class VendingMachine extends JFrame
 
             if(response == JOptionPane.YES_OPTION) {
                 System.out.println("Fritos selected"); 
+
+                updateButton(a2, queue_a2);
             } else {
                 System.out.println("Selection canceled");
             }
@@ -118,6 +126,8 @@ public class VendingMachine extends JFrame
 
             if(response == JOptionPane.YES_OPTION) {
                 System.out.println("Snickers selected"); 
+
+                updateButton(a3, queue_a3);
             } else {
                 System.out.println("Selection canceled");
             }
@@ -193,7 +203,7 @@ public class VendingMachine extends JFrame
                     "Goodbye", 
                     JOptionPane.CANCEL_OPTION
                 );
-                Menu menu = new Menu();
+                //Menu menu = new Menu();
                 menu.setVisible(true);
                 this.dispose(); //closes it
             } else {
@@ -208,25 +218,19 @@ public class VendingMachine extends JFrame
         backpackButon.setBackground(Color.GREEN);
         backpackButon.addActionListener((e) -> {
 
-            if (activeUser != null) {
-
-                JOptionPane.showMessageDialog(
-                this, 
-                activeUser.getPlayerName() + "'s Backpack\nCash: $" + activeUser.getPlayerCash() + "\nInventory: " + activeUser.getPlayerInventory()
-                );
-
-            } else {
-
+            if (activeUser == null) {
                 JOptionPane.showMessageDialog (
-
                     null, 
                     "Somehow you managed to play with a null player.\nPlease actually sign in this time, ok?", 
                     "Error", 
                     JOptionPane.CLOSED_OPTION
-
                 );
-
-            }
+            } 
+                
+            JOptionPane.showMessageDialog(
+                this, 
+                activeUser.getPlayerName() + "'s Backpack\nCash: $" + activeUser.getPlayerCash() + "\nInventory: " + activeUser.getPlayerInventory()
+            );
 
         });
 
@@ -241,20 +245,65 @@ public class VendingMachine extends JFrame
         this.setLocationRelativeTo(null);
 
         //Adds buttons to the frame
-        // TODO: adjust images sizes with photoshop? //what size
         this.add(a1);
         this.add(a2);
         this.add(a3);
         this.add(b1);
         this.add(b2);
         this.add(b3);
-        this.add(c1);
-        this.add(c2);
-        this.add(c3);
-        this.add(d1);
-        this.add(d2);
-        this.add(d3);
+        //this.add(c1);
+        //this.add(c2);
+        //this.add(c3);
+        //this.add(d1);
+        //this.add(d2);
+        //this.add(d3);
         this.add(exitButton);
         this.add(backpackButon);
+    }
+
+    public void setPlayer(Player player) {
+        activeUser = player;
+    }
+
+    /**
+     * Updates the active players data and updates the button
+     */
+    public void updateButton(JButton button, Queue<Item> queue) {
+        //Queue at size 1 has a soldout item which can not be purchased
+        if(queue.size() > 1) {
+            //Subtract from player's cash
+            if(queue.peek().getPrice() > activeUser.getPlayerCash()) {
+                JOptionPane.showMessageDialog(
+                    null, "You do not have enough money to purchase this.", "Warning", JOptionPane.ERROR_MESSAGE
+                );
+            }
+            activeUser.setPlayerCash(activeUser.getPlayerCash() - queue.peek().getPrice());
+            //Remove from queue
+            inventory.add(queue.poll());
+            //Update queue, and arraylist for the player
+            activeUser.setPlayerInventory(inventory);
+            //Display new item
+            button.setIcon(queue.peek().getIcon());
+        }
+        //debug
+        System.out.println("Button " + button.getName() + " is empty");
+    }
+
+    /**
+     * Sets the queues for the game from the player data.
+     */
+    public void setQueues(ArrayList<Queue<Item>> list) {
+        queue_a1 = list.get(0);
+        queue_a2 = list.get(1);
+        queue_a3 = list.get(2);
+        queue_b1 = list.get(3);
+        queue_b2 = list.get(4);
+        queue_b3 = list.get(5);
+        queue_c1 = list.get(6);
+        queue_c2 = list.get(7);
+        queue_c3 = list.get(8);
+        queue_d1 = list.get(9);
+        queue_d2 = list.get(10);
+        queue_d3 = list.get(11);
     }
 }
