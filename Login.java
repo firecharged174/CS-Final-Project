@@ -38,7 +38,9 @@ public class Login extends JFrame //implements Serializable -> this is redundent
             } 
         }
 
-        
+        //Fills players all players in player.dat
+        fillPlayers();
+        fillPlayerNames();
 
         /** Sign in button gives user access to previously made account */
         signIn = new JButton("Sign In");
@@ -72,8 +74,7 @@ public class Login extends JFrame //implements Serializable -> this is redundent
             boolean isplayer = false;
             for (int i = 0; i < playerNames.size(); i++) {
                 if (playerName == playerNames.get(i)) {
-                    isplayer = true;
-                    //break;
+                    break;
                 }
             }
             if (isplayer == false) {
