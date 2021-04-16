@@ -74,35 +74,35 @@ public class VendingMachine extends JFrame
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purcahse this?",
+                "Are you sure you would like to purchase this?",
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
 
             if(response == JOptionPane.YES_OPTION) {
-                System.out.println("Cheetos selected"); 
+                System.out.println("*A1* selected"); 
                 
                 updateButton(a1, queue_a1);
             } else {
-                System.out.println("Selection canceled"); 
+                System.out.println("Selection canceled"); //debug
             }
         }); 
 
         //Button for slot A2
         a2 = new JButton();
-        a2.setBounds(x+= (x+width + x/width), y, width, height);
+        a2.setBounds(300, y, width, height);
         //a2.setIcon(fritosIcon);
         a2.addActionListener((e) -> {
             //Confirm button
             response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purcahse this?",
+                "Are you sure you would like to purchase this?",
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
 
             if(response == JOptionPane.YES_OPTION) {
-                System.out.println("Fritos selected"); 
+                System.out.println("*A2* selected"); 
 
                 updateButton(a2, queue_a2);
             } else {
@@ -113,19 +113,19 @@ public class VendingMachine extends JFrame
 
         //Button for slot A3
         a3 = new JButton();
-        a3.setBounds(x+= (x+width + x/width), y, width, height);
+        a3.setBounds(500, y, width, height);
         //a3.setIcon(snickersIcon);
         a3.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purcahse this?",
+                "Are you sure you would like to purchase this?",
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
 
             if(response == JOptionPane.YES_OPTION) {
-                System.out.println("Snickers selected"); 
+                System.out.println("*A3* selected"); 
 
                 updateButton(a3, queue_a3);
             } else {
@@ -139,7 +139,7 @@ public class VendingMachine extends JFrame
 
         //Button for slot B1
         b1 = new JButton();
-        b1.setBounds(x, y+= (y+height + y/height), width, height);
+        b1.setBounds(100, 225, width, height);
         //b1.setIcon(crunchIcon);
         b1.addActionListener((e) -> {
             //Confirm button
@@ -150,7 +150,7 @@ public class VendingMachine extends JFrame
                 JOptionPane.YES_NO_OPTION
             );
             if (response == JOptionPane.YES_OPTION) {
-                System.out.println("[crunch] selected"); 
+                System.out.println("*B1* selected"); 
             } else {
                 System.out.println("Selection canceled");
             }
@@ -159,13 +159,13 @@ public class VendingMachine extends JFrame
 
         //Button for slot B2
         b2 = new JButton();
-        b2.setBounds(x, y+= (y+height + y/height), width, height);
+        b2.setBounds(300, 225, width, height);
         //b2.setIcon(queue_b2.get().getIcon());
         b2.addActionListener((e) -> System.out.println("button b2 works"));
 
         //Button for slot B3
         b3 = new JButton();
-        b3.setBounds(x, y+= (y+height + y/height), width, height);
+        b3.setBounds(500, 225, width, height);
         //b2.setIcon(queue_b2.get().getIcon());
         b3.addActionListener((e) -> System.out.println("button b3 works"));
 
@@ -174,10 +174,40 @@ public class VendingMachine extends JFrame
         y = defauly_y;
 
         //Button for slot C1
+        c1 = new JButton();
+        c1.setBounds(x, 350, width, height);
+        //b2.setIcon(queue_b2.get().getIcon());
+        c1.addActionListener((e) -> System.out.println("button c1 works"));
 
         //Button for slot C2
+        c2 = new JButton();
+        c2.setBounds(300, 350, width, height);
+        //b2.setIcon(queue_b2.get().getIcon());
+        c2.addActionListener((e) -> System.out.println("button c2 works"));
 
         //Button for slot C3
+        c3 = new JButton();
+        c3.setBounds(500, 350, width, height);
+        //b2.setIcon(queue_b2.get().getIcon());
+        c3.addActionListener((e) -> System.out.println("button c3 works"));
+
+        //d1
+        d1 = new JButton();
+        d1.setBounds(x, 475, width, height);
+        //b2.setIcon(queue_b2.get().getIcon());
+        d1.addActionListener((e) -> System.out.println("button d1 works"));
+
+        //d2
+        d2 = new JButton();
+        d2.setBounds(300, 475, width, height);
+        //b2.setIcon(queue_b2.get().getIcon());
+        d2.addActionListener((e) -> System.out.println("button d2 works"));
+
+        //d3
+        d3 = new JButton();
+        d3.setBounds(500, 475, width, height);
+        //b2.setIcon(queue_b2.get().getIcon());
+        d3.addActionListener((e) -> System.out.println("button d3 works"));
 
 
         // Exit button with confirmation 
@@ -251,12 +281,12 @@ public class VendingMachine extends JFrame
         this.add(b1);
         this.add(b2);
         this.add(b3);
-        //this.add(c1);
-        //this.add(c2);
-        //this.add(c3);
-        //this.add(d1);
-        //this.add(d2);
-        //this.add(d3);
+        this.add(c1);
+        this.add(c2);
+        this.add(c3);
+        this.add(d1);
+        this.add(d2);
+        this.add(d3);
         this.add(exitButton);
         this.add(backpackButon);
     }

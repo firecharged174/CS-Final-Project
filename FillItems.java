@@ -5,8 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
+import java.util.Scanner;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,31 +14,30 @@ import javax.swing.ImageIcon;
  * This is a stand-slone file and runs seperatly from everything else.
  * @author Zane Yankalunas
  * @author Avin Patel
+ * @author Cory Berger
  * @version 2/21/2021
  */
-public class FillItems implements Serializable
+public class FillItems 
 {
-    private static final long serialVersionUID = 9112168208941547441L;
-
     public static void main(String[] args) 
     {
-        File items = new File("items.txt");
-        File file = new File("items.dat");
-        File itemFile = new File("../Item.java");
+        File items = new File("./util/items.txt");
+        File file = new File("./util/items.dat");
         
         try {
             //Fetch data from items.txt
-            FileInputStream fis = new FileInputStream(items);
-            ObjectInputStream ois = new ObjectInputStream(fis);
+            Scanner scanner = new Scanner(items);
             
             //Add values to items.dat
-            for (int i = 0; i < 21; i++) {
+            for (int i = 1; i < 21; i++) {
                 Item item = new Item();
                 
                 //Get values from the file
-                String name;
-                double price;
-                ImageIcon icon;
+                scanner.useDelimiter(",\\s*");
+                String name = scanner.next(); 
+                double price = scanner.nextDouble();
+                String iconPath = scanner.next();
+                ImageIcon icon = new ImageIcon(iconPath);
 
                 //Add values to item object
                 item.setName(name);
@@ -53,17 +51,17 @@ public class FillItems implements Serializable
                     fout.writeObject(item);
                     fout.close();
                 } catch (FileNotFoundException ex) {
-                    System.err.println("File not dound in inner try block");
+                    System.err.println("File not found in inner try block");
                 } catch (IOException ex) {
                     System.err.println("IOException in inner try block");
-                } catch (Exception ex) {
+                    System.out.println("line " + i + " in items.txt- name: " + name + " price: " + price + " iconPath: " + iconPath);
+                } catch (Exception ex) {                                    
                     System.err.println("Gener exception in inner try block");
                 }
             }
 
             //Close the objects
-            ois.close();
-            fis.close();
+            scanner.close();
         } catch (FileNotFoundException ex) {
             System.err.println("File not here err");
         } catch (Exception ex) {
