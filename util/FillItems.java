@@ -1,15 +1,18 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
  * FillItems.java
- * Will fill items.dat with Item objects from items.json to be accessed by other files.
- * This file not be used by other files and is a creater only way to add items to the vending machine.
+ * Will fill items.dat with Item.java objects from items.txt to be accessed by the other files.
+ * This is a stand-slone file and runs seperatly from everything else.
  * @author Zane Yankalunas
  * @author Avin Patel
  * @version 2/21/2021
@@ -20,25 +23,23 @@ public class FillItems implements Serializable
 
     public static void main(String[] args) 
     {
-        File file = new File("./util/items.dat");
+        File items = new File("items.txt");
+        File file = new File("items.dat");
+        File itemFile = new File("../Item.java");
         
         try {
-            //Fetch data from JSON aray
-            Object obj = new FileReader(file);
-            JSONObject jobj = new JSONObject(obj);
-
-            JSONArray arr = jobj.getJSONArray("items");
+            //Fetch data from items.txt
+            FileInputStream fis = new FileInputStream(items);
+            ObjectInputStream ois = new ObjectInputStream(fis);
             
             //Add values to items.dat
-            for (int i = 0; i < arr.length(); i++) {
+            for (int i = 0; i < 21; i++) {
                 Item item = new Item();
-
-                JSONObject itemObj = arr.getJSONObject(i);
-
-                //Get values from the array
-                String name = itemObj.getString("name"); 
-                double price = itemObj.getDouble("price");
-                ImageIcon icon = new ImageIcon(itemObj.getString("image"));
+                
+                //Get values from the file
+                String name;
+                double price;
+                ImageIcon icon;
 
                 //Add values to item object
                 item.setName(name);
@@ -60,14 +61,13 @@ public class FillItems implements Serializable
                 }
             }
 
+            //Close the objects
+            ois.close();
+            fis.close();
         } catch (FileNotFoundException ex) {
             System.err.println("File not here err");
-        } catch (JSONException ex) {
-            System.err.println("JSON exception ");
         } catch (Exception ex) {
             System.err.println("General exception");
         }
-
-        //make sure everything is added
     }
 }

@@ -18,11 +18,12 @@ public class Login extends JFrame //implements Serializable -> this is redundent
 
     private JButton signIn, newAccount, back;
     private JLabel info = new JLabel("You must be logged in to start.");
+    private ImageIcon frameIcon = new ImageIcon("./images/small_lock_clipart.png");
+
     Player activeUser = new Player();;
     private ArrayList<String> playerNames = new ArrayList<String>(); 
     private ArrayList<Player> players = new ArrayList<Player>(); 
     private File file = new File("./util/player.dat");
-    private ImageIcon frameIcon = new ImageIcon("./images/small_lock_clipart.png");
     private boolean loggedIn = false;
     private ArrayList<Queue<Item>> queueList = new ArrayList<Queue<Item>>(); //problem
 
@@ -47,6 +48,10 @@ public class Login extends JFrame //implements Serializable -> this is redundent
         signIn.setBounds(10, 10, 150, 30);
         signIn.addActionListener((e) -> {
 
+            //Fills players all players in player.dat
+            fillPlayers();
+            fillPlayerNames();
+
             // Checks if players is valid and closes
             if (playerNames.size == 0) {
                 JOptionPane.showMessageDialog (
@@ -59,7 +64,7 @@ public class Login extends JFrame //implements Serializable -> this is redundent
             }
 
             // Get player name
-            String playerName = (String) JOptionPane.showInputDialog(  //why
+            String playerName = (String) JOptionPane.showInputDialog(
                 this,   //parent component
                 "Enter player name: ", //message
                 "Login", //title
@@ -80,7 +85,7 @@ public class Login extends JFrame //implements Serializable -> this is redundent
                 return;
             }
             
-            System.out.println("Before searching for players:");
+            System.out.println("Before searching for players:"); //debug
             System.out.println(activeUser.toString());
 
             // Checks player.dat for the player object associated with the name and loads the data
