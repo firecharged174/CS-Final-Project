@@ -1,0 +1,48 @@
+What do we want to have for the player? 
+    - Money amount: 
+        -random per each player
+            -$10 to $100 
+        -Change after purchase
+        -Decimal values?
+        -Do we assign a set amount of bills?
+    - What they bought - inventory
+    - Their name 
+
+How many rows and columns of stuff?
+    -4x4 or something like that, smaller, or we could go bigger
+    -4x4 means 16 items min in the list so maybe 3x4 for 12 min items
+
+Names of rows and colums?
+    -A1, A2, A3
+    -B1, B2, B3
+    -C1, C2. C3
+    -D1, D2, D3
+
+Whats in the vending machine?  
+    -items.json 
+    -another data structure?
+
+What data struc. we gonna use?
+    -Queue
+         -Each slot will have random item behind it (i.e A1 - Cheetos, then MM, then Snickers) 
+         and not just a queue of cheetos
+    -ArrayList 
+        -of player inventory
+
+
+do we want multiple players to be able to give eachother money or is that unnecessary?
+
+Should there be a way to make new money or 'refresh' the vending machine?
+
+
+Hows it gonna work?
+-------------------
+Each button will be its own Queue of random items. Each queue will be of random length.
+Each player will have a unique player object. All player objects will be saved to player.dat 
+
+
+//I think we need to make objects for all the items in the game. Each would include say its name, imageicon and price,
+    //cuz i actually dont know how else we can save all the information for each. Then that begs the question, how do we do that?
+
+    //Ok a thought just occurred to me, why dont we create a temporary file that can write all the item objects to an items.bin,
+    //and we can read from that, just like the player objects
