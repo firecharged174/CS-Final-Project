@@ -17,6 +17,4 @@ Hersheys, 1.0, ./images/Hersheys.png,
 Hersheys Cookies and Cream, 1.25, ./images/HersheysCookiesAndCream.png,
 Magnum Condoms, 2.5, ./images/MagnumCondoms.png,
 White Cheddar Popcorn, 1.75, ./images/WhiteCheddar.png,
-Kettle Corn Popcorn, 1.75, ./images/KettleCorn.png,
-
-line 5,11,14,16,17
+Kettle Corn Popcorn, 1.75, ./images/KettleCorn.png, 
