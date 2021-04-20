@@ -38,11 +38,13 @@ public class FillItems
                 double price = scanner.nextDouble();
                 String iconPath = scanner.next();
                 ImageIcon icon = new ImageIcon(iconPath);
+                int point = scanner.nextInt();
 
                 //Add values to item object
                 item.setName(name);
                 item.setPrice(price);
                 item.setIcon(icon);
+                item.setPoint(point);
 
                 //Write Object to items.dat
                 try {
