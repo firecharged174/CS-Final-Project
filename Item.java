@@ -15,17 +15,19 @@ public class Item implements Serializable
     private String name;
     private ImageIcon icon;
     private double price;
+    private int point;
 
     private static final String DEFAULT_NAME = "Chips";
     private static final ImageIcon DEFAULT_ICON = new ImageIcon("../items/DefaultChips.png");
     private static final double DEFAULT_PRICE = 1.25;
+    private static final double DEFAULT_POINT = 1;
 
     /**
      * Default constructor for class Item
      */
     public Item()
     {
-        this(DEFAULT_NAME, DEFAULT_ICON, DEFAULT_PRICE);
+        this(DEFAULT_NAME, DEFAULT_ICON, DEFAULT_PRICE, DEFAULT_POINT);
     }
 
     /**
@@ -33,12 +35,14 @@ public class Item implements Serializable
      * @param itemName - name of the item
      * @param itemIcon - image for the item
      * @param itemPrice - price of the item
+     * @param itemPoint - point value of item
      */
-    public Item (String itemName, ImageIcon itemIcon, double itemPrice)
+    public Item (String itemName, ImageIcon itemIcon, double itemPrice, int itemPoint)
     {
         name = itemName;
         icon = itemIcon;
         price = itemPrice;
+        point = itemPoint;
     }
 
 
@@ -65,5 +69,13 @@ public class Item implements Serializable
 
     public double getPrice() {
         return price;
+    }
+    
+    public void setPoint(int point) {
+        this.point = point;
+    }
+    
+    public int getPoint() {
+        return point;
     }
 }
