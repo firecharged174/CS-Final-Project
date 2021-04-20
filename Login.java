@@ -305,7 +305,7 @@ public class Login extends JFrame //implements Serializable -> this is redundent
             for (int i = 0; i < 5; i++) { //5 is number items per slot
                 //q.add(fin.getObject()); //randomize .. Add items.dat to array then randoml pikck and add 5 items to q
             }
-            q.add(new Item("SOLD OUT!", new ImageIcon("images/sold_out.png"), 1000));
+            q.add(new Item("SOLD OUT!", new ImageIcon("images/sold_out.png"), 1000, 0));
 
             objIn.close();
             fin.close();
