@@ -9,31 +9,18 @@ Update as necessary or when something is finished
 
 **TODO: VendingMachine.java
 [❌] Randomize all the buttons for each player upon new account creation
-[] Load all the buttons when a player starts.
+[❌] Load all the buttons when a player starts.
 [] Adjust images with photoshop, or find way to scale them to the buttons (if we're lazy we can just use text)
-[] Add the rest of the buttons. 
+[❌] Add the rest of the buttons. 
 [] Replace JButtons with image window type thing (optional)
 [] Make it look good (optional)
-
-
-**TODO: Login.java
-[❌] Sign in: look through player.dat for correct player name
-[❌] Sign In: only players with an account can log in, otherwise, display error.
-[] Sign In: does not recognize old players.
-[❌] New account: throws IOException. Fix this.
-[] Create fillQueue() to fill a Queue with Item objects from item.dat
-[❌] Set active user when signing in, active user is null in VendingMachine.java 
-[] New Account: check if name is a bad word (optional)
-
-
-**TODO: items.json
-[❌] Modify the file like the other objects. (FillItems.java will take this info and convert them to Item.java objects) 
+[] Save player score to highscore (if score meets criteria) only doing top 5
 
 
 **TODO: FillItems.java 
 [❌] Fill up items.dat with Item objects added by us seperately
 [] Fix whole thing. Like the paths and the maven thing.
-[] Forget about the json and just read from a txt file where each line is all the information, ie:
+[❌] Forget about the json and just read from a txt file where each line is all the information, ie:
     name
     image icon location
     price
@@ -71,3 +58,19 @@ Update as necessary or when something is finished
 
 **TODO: Player.java
 [❌] Implement a player class that will store the information about the player.
+[❌] Add score attribute to player.
+
+
+
+# Scew this shit
+**TODO: Login.java
+[❌] Sign in: look through player.dat for correct player name
+[❌] Sign In: only players with an account can log in, otherwise, display error.
+[] Sign In: does not recognize old players.
+[❌] New account: throws IOException. Fix this.
+[] Create fillQueue() to fill a Queue with Item objects from item.dat
+[❌] Set active user when signing in, active user is null in VendingMachine.java 
+[] New Account: check if name is a bad word (optional)
+
+**TODO: items.json
+[❌] Modify the file like the other objects. (FillItems.java will take this info and convert them to Item.java objects) 

@@ -1,3 +1,10 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import javax.swing.*;
 
 /**
@@ -12,30 +19,37 @@ public class Menu extends JFrame
 {
     private static final long serialVersionUID = 745882847123195643L;
     
-    private JButton startButton, loginButton, aboutButton, exitButton;
-    private JLabel playerLabel = new JLabel("You must login to start");
+    private JButton startButton, highScoresButton, aboutButton, exitButton;
 
-    Login login;
+    //Login login;
     VendingMachine vm;
     Player player;
+    private ArrayList<Queue<Item>> queueList = new ArrayList<Queue<Item>>(); //problem
     
     /**
      * Menu for the game.
-     * Cotains the start, login, about, and exit buttons. 
+     * Cotains the start, highscores, about, and exit buttons. 
      */
     Menu() 
     {
-        login = new Login(this);
+        //login = new Login(this);
         
         // Creates new buttons for the frame //
-        //Login button
-        loginButton = new JButton("Login");
-        loginButton.setBounds(75, 50, 100, 30); //bounds
-        loginButton.addActionListener((e) -> {
+        //High scores button
+        highScoresButton = new JButton("High Scores");
+        highScoresButton.setBounds(75, 50, 100, 30); //bounds
+        highScoresButton.addActionListener((e) -> {
+
+            JOptionPane.showMessageDialog(
+                this, 
+                displayHighScores(), 
+                "High Scores", 
+                JOptionPane.PLAIN_MESSAGE
+            );
 
             //Creates an instane of a login frame
-            login.setVisible(true);
-            this.setVisible(false);
+            //login.setVisible(true);
+            //this.setVisible(false);
 
         });
 
@@ -43,7 +57,26 @@ public class Menu extends JFrame
         startButton = new JButton("Start");
         startButton.setBounds(75, 100, 100, 30);
         startButton.addActionListener((e) -> {
-            
+
+            player = new Player();
+
+            //Get user name
+            //Sets the name of the new player
+            player.setPlayerName(
+                (String) JOptionPane.showInputDialog(
+                    this, "Enter player name: "
+                )
+            );
+
+            //Sets the money of the new user
+            player.setPlayerCash((int)(Math.random()*101)); //rand int btwn 10 and 100 [Math.random() * (max-min+1) + min]
+
+            //Fill queues and add to arraylist of queues of item objects
+            player.setVendingMachineSlots(setPlayerArray(queueList)); 
+
+
+
+            /** 
             // Check for active user
             if (login.getLoggedIn() == false || login.getActiveUser() == null) {
                 JOptionPane.showMessageDialog (
@@ -54,6 +87,9 @@ public class Menu extends JFrame
                 );
                 return;
             }
+            */
+
+            setPlayer(player);
             
             //Starts the game
             vm = new VendingMachine(this);
@@ -69,7 +105,7 @@ public class Menu extends JFrame
 
             JOptionPane.showMessageDialog(
                 this, 
-                "Vending Machine Simulator\n\nMade by:\nZane Yankalunas\nCory Berger\nAvin Patel\n\nHow to play:\nStart by logging in or creating a new account.\nStarting the game will generate or load a custom vending machine and a random amount of money.\nUse your momey to buy things by clicking on the images.\nCheck your wallet and invetory at any time by clicking 'Backpack'\n\nSubscribe",
+                "Vending Machine Simulator\n\nMade by:\n•Zane Yankalunas\n•Cory Berger\n•Avin Patel\n\nHow to play:\nStart by logging in or creating a new account.\nStarting the game will generate or load a custom vending machine and a random amount of money.\nUse your momey to buy things by clicking on the images.\nCheck your wallet and invetory at any time by clicking 'Backpack'\n\nSubscribe",
                 "About",
                 JOptionPane.CLOSED_OPTION
             );
@@ -107,9 +143,7 @@ public class Menu extends JFrame
 
         });
 
-        if (login.getLoggedIn()) {
-            playerLabel.setText("You are logged in as:\n" + login.getActiveUser().getPlayerName());
-        }
+       
 
         // Creates the frame
         this.setTitle("Menu");
@@ -122,17 +156,86 @@ public class Menu extends JFrame
 
         //Adds necessary buttons to the frame
         this.add(startButton);
-        this.add(loginButton);
+        this.add(highScoresButton);
         this.add(aboutButton);
         this.add(exitButton);
-        this.add(playerLabel);
+        //this.add(playerLabel);
     } 
-    
+
     /**
-     * Returns the active user from Login.java
-     * @return active player
+     * Displays the highscores
+     * @return scores - String of highscores
      */
+    public String displayHighScores() {
+        String scores = "Top 5 High Scores:\n";
+        File hs = new File("./util/player.dat");
+        
+        if (hs.exists()) {
+            try {
+                FileInputStream fin = new FileInputStream(hs);
+                ObjectInputStream ois = new ObjectInputStream(fin);
+                
+                for (int i = 0; i < 5; i++) {
+                    Player test = (Player)ois.readObject();
+                    String name = test.getPlayerName();
+                    int score = test.getPlayerScore();
+                    scores += (name + ": " + score + "points\n");
+                }
+
+                fin.close();
+            } catch (FileNotFoundException e) {
+                System.err.println("No high scores file");
+            } catch (Exception e) {
+                System.err.println("Exception displaying hs");
+            }
+
+            return scores;
+        }
+        
+        return "There are no high scores to display";
+    }
+
+    public ArrayList<Queue<Item>> setPlayerArray(ArrayList<Queue<Item>> qList) {
+        for (int i = 0; i < 12; i++) {
+            queueList.add(fillQueue(new Queue<Item>()));
+        }  
+        return qList; 
+    }
+
+    /**
+     * Fill queue with Item objects from item.dat or item.bin
+     * @return Queue of Item's
+     */
+    public Queue<Item> fillQueue(Queue<Item> q) 
+    {
+        //File with
+        File file = new File("util/items.dat"); 
+
+        try {
+            FileReader fin = new FileReader(file);
+            ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(file));
+            
+            // Add items to items.dat
+            for (int i = 0; i < 5; i++) { //5 is number items per slot
+                //q.add(fin.getObject()); //randomize .. Add items.dat to array then randoml pikck and add 5 items to q
+            }
+            q.add(new Item("SOLD OUT!", new ImageIcon("images/sold_out.png"), 1000, 0));
+
+            objIn.close();
+            fin.close();
+        } catch (FileNotFoundException ex) {
+            System.err.println("No file for queues to fill from.");
+        } catch (IOException ex) {
+            System.err.println("IOException filling queues");
+        }
+        return q;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public Player getPlayer() {
-        return login.getActiveUser();
+        return player;
     }
 }

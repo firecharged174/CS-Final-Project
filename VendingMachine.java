@@ -1,4 +1,13 @@
 import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+
 import javax.swing.*;
 
 /**
@@ -11,11 +20,12 @@ import javax.swing.*;
  */
 public class VendingMachine extends JFrame 
 {  
-    private static final long serialVersionUID = -6981507101762460021L;
+    //private static final long serialVersionUID = -6981507101762460021L;
 
     //The active user
     Player activeUser;
     ArrayList<Item> inventory;
+    private ArrayList<Player> playerList = new ArrayList<Player>();
 
     //Frame Icon
     private static ImageIcon frameIcon = new ImageIcon("./images/Vendingmachine.jpg");
@@ -233,12 +243,87 @@ public class VendingMachine extends JFrame
                     "Goodbye", 
                     JOptionPane.CANCEL_OPTION
                 );
+
+                File scores = new File("./util/player.dat");
+                boolean madeLeaderboard = false;
+                try {
+                    FileInputStream fis = new FileInputStream(scores);
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    
+                    //Add players from player.dat to playerList
+                    playerList = (ArrayList<Player>) ois.readObject();
+
+                    //Check if current players score is greater than the least
+                    //if so, add it to hs
+
+                    if (playerList.size() < 5) {
+                        boolean added = false;
+                        madeLeaderboard = true;
+                        for (int i = 0; i < playerList.size(); i++) {
+                            if (playerList.get(i).getPlayerScore() < activeUser.getPlayerScore()) {
+                                playerList.add(i, activeUser);
+                                added = true;
+                            }
+                        }
+                        if (!(added)) {
+                            playerList.add(activeUser);
+                        }
+                        
+                    } else {
+                        if (playerList.get(4).getPlayerScore() < activeUser.getPlayerScore()) {
+                            boolean added = false;
+                            madeLeaderboard = true;
+                            playerList.remove(4);
+                            for (int i = 0; i < playerList.size(); i++) {
+                                if (playerList.get(i).getPlayerScore() < activeUser.getPlayerScore()) {
+                                    playerList.add(i, activeUser);
+                                    added = true;
+                                }
+                            }
+                            if (!(added)) {
+                                playerList.add(4, activeUser);
+                            }
+                        }
+                    }
+
+                    fis.close();
+                    ois.close();
+                } catch (FileNotFoundException ex) {
+                    System.err.println("fatality ");
+                } catch (IOException ex){
+                    System.err.println("not like that...");
+                } catch (Exception ex) {
+                    System.err.println("god why");
+                }
+
+                //TODO: save player to highscores if score meets criteria
+                if (madeLeaderboard) {
+                    try {
+                        FileOutputStream fos = new FileOutputStream(scores);
+                        ObjectOutputStream ois = new ObjectOutputStream(fos);
+
+                        for (int i = 0; i < playerList.size(); i++) {
+                            ois.writeObject(playerList.get(i));
+                        }
+                            
+                        ois.close();
+                        fos.close();
+                        System.out.println("New high score generated");
+                    } catch (FileNotFoundException ex) {
+                        System.err.println("No hs file to write to");
+                    } catch (IOException ex) {
+                        System.err.println("IOException writing to high scores");
+                    } catch (Exception ex) {
+                        System.err.println("Exception writing to hish scores");
+                    }
+                }
+
                 //Menu menu = new Menu();
                 menu.setVisible(true);
                 this.dispose(); //closes it
-            } else {
-                System.out.println("Canceling exit call...");
-            }
+            } 
+                
+            System.out.println("Canceling exit call...");
 
         });
 
@@ -308,6 +393,8 @@ public class VendingMachine extends JFrame
                 );
             }
             activeUser.setPlayerCash(activeUser.getPlayerCash() - queue.peek().getPrice());
+            //Update score
+            activeUser.setPlayerCash(queue.peek().getPoint() + activeUser.getPlayerCash());
             //Remove from queue
             inventory.add(queue.poll());
             //Update queue, and arraylist for the player

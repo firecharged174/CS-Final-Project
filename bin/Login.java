@@ -1,6 +1,13 @@
+package bin;
 import java.awt.Color;
 import java.io.*;
 import javax.swing.*;
+
+import ArrayList;
+import Item;
+import Menu;
+import Player;
+import Queue;
 
 /**
  * Login.java
@@ -174,7 +181,7 @@ public class Login extends JFrame //implements Serializable -> this is redundent
                     System.err.println("File read error when adding new user to player.dat");
                 } catch (IOException ex) {
                     System.err.println("IOException when adding new user to player.dat"); //thrown every time ... Player is not serializable
-                    
+                    a
                 }
             }
 

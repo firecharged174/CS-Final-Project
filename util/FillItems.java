@@ -1,3 +1,4 @@
+package util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,6 +9,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import javax.swing.ImageIcon;
+
+import Item;
 
 /**
  * FillItems.java

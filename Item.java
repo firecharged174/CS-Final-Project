@@ -20,7 +20,7 @@ public class Item implements Serializable
     private static final String DEFAULT_NAME = "Chips";
     private static final ImageIcon DEFAULT_ICON = new ImageIcon("../items/DefaultChips.png");
     private static final double DEFAULT_PRICE = 1.25;
-    private static final double DEFAULT_POINT = 1;
+    private static final int DEFAULT_POINT = 1;
 
     /**
      * Default constructor for class Item

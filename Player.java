@@ -14,9 +14,11 @@ public class Player implements Serializable
     // Variables 
     private String playerName;
     private double playerCash;
+    private int playerScore;
     private ArrayList<Item> playerInventory;
     private static final double DEFAULT_CASH = 10;
     private static final String DEFAULT_NAME = "John Doe";
+    private static final int DEFAULT_SCORE = 0;
     private static final ArrayList<Item> DEFAULT_INVENTORY = new ArrayList<Item>();
     private static final ArrayList<Queue<Item>> DEFAULT_SLOTS = null; 
 
@@ -30,14 +32,15 @@ public class Player implements Serializable
      * @param inventory - inventory of player
      */
     public Player() {
-        this(DEFAULT_NAME, DEFAULT_CASH, DEFAULT_INVENTORY, DEFAULT_SLOTS);
+        this(DEFAULT_NAME, DEFAULT_CASH, DEFAULT_INVENTORY, DEFAULT_SLOTS, DEFAULT_SCORE);
     }
 
-    public Player(String name, double money, ArrayList<Item> inventory, ArrayList<Queue<Item>> slots) {
+    public Player(String name, double money, ArrayList<Item> inventory, ArrayList<Queue<Item>> slots, int score) {
         playerName = name;
         playerCash = money;
         playerInventory = inventory;
         vendingMachineSlots = slots;
+        playerScore = score;
     }
 
     public void setPlayerName(String playerName) {
@@ -54,6 +57,14 @@ public class Player implements Serializable
 
     public double getPlayerCash() {
         return playerCash;
+    }
+
+    public void setPlayerScore(int playerScore) {
+        this.playerScore = playerScore;
+    }
+
+    public int getPlayerScore() {
+        return playerScore;
     }
 
     public void setPlayerInventory(ArrayList<Item> playerInventory) {
