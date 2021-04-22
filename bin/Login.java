@@ -37,7 +37,7 @@ public class Login extends JFrame //implements Serializable -> this is redundent
     {
         //creates new player.dat if it dosen't exist
         if(!(file.isFile())) {
-            try {
+            try 
                 FileOutputStream data = new FileOutputStream("./util/player.dat");
                 data.close();
             } catch (Exception e) {

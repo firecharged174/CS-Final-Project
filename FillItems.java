@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
+import java.io.Serializable;
 
 /**
  * FillItems.java
@@ -15,7 +16,7 @@ import javax.swing.ImageIcon;
  * @author Cory Berger
  * @version 2/21/2021
  */
-public class FillItems 
+public class FillItems implements Serializable
 {
     public static void main(String[] args) 
     {

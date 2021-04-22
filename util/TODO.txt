@@ -7,6 +7,11 @@ Update as necessary or when something is finished
 [] Switch to JavaFX when this is done. (optional)
 
 
+**TODO: player.dat
+[] Fix massive file issue.
+[] Adding a third player seems to crash it. 
+
+
 **TODO: VendingMachine.java
 [❌] Randomize all the buttons for each player upon new account creation
 [❌] Load all the buttons when a player starts.

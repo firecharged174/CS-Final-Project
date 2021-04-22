@@ -4,8 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-
 import javax.swing.*;
+import java.io.EOFException;
 
 /**
  * Menu.java
@@ -13,6 +13,8 @@ import javax.swing.*;
  * Allows user to login and start the game.
  * Includes instructions for how to play.
  * @author Zane Yankalunas
+ * @author Avin Patel
+ * @author Cory Berger
  * @version 2/11/2021
  */
 public class Menu extends JFrame
@@ -179,12 +181,17 @@ public class Menu extends JFrame
                     Player test = (Player)ois.readObject();
                     String name = test.getPlayerName();
                     int score = test.getPlayerScore();
-                    scores += (name + ": " + score + "points\n");
+                    scores += (i + ". " + name + ": " + score + " points\n");
+                    System.out.println("loop " + i + " in menu");//for debugging 
                 }
 
                 fin.close();
             } catch (FileNotFoundException e) {
                 System.err.println("No high scores file");
+            } catch (EOFException e) {
+                System.err.println("Ignore this.. End Of File Exception... Nothing more to read in player.dat");
+            } catch (IOException e) {
+                System.err.println("IO err");
             } catch (Exception e) {
                 System.err.println("Exception displaying hs");
             }
@@ -197,7 +204,7 @@ public class Menu extends JFrame
 
     public ArrayList<Queue<Item>> setPlayerArray(ArrayList<Queue<Item>> qList) {
         for (int i = 0; i < 12; i++) {
-            queueList.add(fillQueue(new Queue<Item>()));
+            qList.add(fillQueue(new Queue<Item>()));
         }  
         return qList; 
     }
@@ -206,29 +213,18 @@ public class Menu extends JFrame
      * Fill queue with Item objects from item.dat or item.bin
      * @return Queue of Item's
      */
-    public Queue<Item> fillQueue(Queue<Item> q) 
+    public Queue<Item> fillQueue(Queue<Item> q) //run fillItems before this
     {
-        //File with
-        File file = new File("util/items.dat"); 
+        //Temp adding shit cuz procrastinate
+        q.add(new Item("M&M's", new ImageIcon("images/mm.png"), 1.0, 2));
+        q.add(new Item("Ruffles", new ImageIcon("images/Ruffles.png"), 1.75, 3));
+        q.add(new Item("Twix", new ImageIcon("images/Twix.png"), 1.25, 2));
+        q.add(new Item("Snickers", new ImageIcon("images/Snickers.png"), 1.25, 2));
+        q.add(new Item("SOLD OUT!", new ImageIcon("images/sold_out.png"), 1000, 0));
 
-        try {
-            FileReader fin = new FileReader(file);
-            ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(file));
-            
-            // Add items to items.dat
-            for (int i = 0; i < 5; i++) { //5 is number items per slot
-                //q.add(fin.getObject()); //randomize .. Add items.dat to array then randoml pikck and add 5 items to q
-            }
-            q.add(new Item("SOLD OUT!", new ImageIcon("images/sold_out.png"), 1000, 0));
-
-            objIn.close();
-            fin.close();
-        } catch (FileNotFoundException ex) {
-            System.err.println("No file for queues to fill from.");
-        } catch (IOException ex) {
-            System.err.println("IOException filling queues");
-        }
+        //Return the queue
         return q;
+        
     }
 
     public void setPlayer(Player player) {

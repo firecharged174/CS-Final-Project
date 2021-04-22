@@ -173,18 +173,6 @@ import java.io.Serializable;
                 }
                 return (T)list[nextIndex++];
             }
-
-            public boolean hasPrevious() {
-                return nextIndex > 0;
-            }
-            
-            @SuppressWarnings("unchecked")
-            public T previous() {
-                if (!hasPrevious()) {
-                    throw new NoSuchElementException();
-                }
-                return (T)list[nextIndex--];
-            }
         };
     }
     //cant think of any other methods that we need -Avin
