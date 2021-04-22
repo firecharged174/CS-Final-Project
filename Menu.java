@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import javax.swing.*;
@@ -177,14 +176,14 @@ public class Menu extends JFrame
                 FileInputStream fin = new FileInputStream(hs);
                 ObjectInputStream ois = new ObjectInputStream(fin);
                 
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 3; i++) {
                     Player test = (Player)ois.readObject();
                     String name = test.getPlayerName();
                     int score = test.getPlayerScore();
-                    scores += (i + ". " + name + ": " + score + " points\n");
+                    scores += ((i+1) + ". " + name + ": " + score + " points\n");
                     System.out.println("loop " + i + " in menu");//for debugging 
                 }
-
+                ois.close();
                 fin.close();
             } catch (FileNotFoundException e) {
                 System.err.println("No high scores file");
@@ -203,6 +202,7 @@ public class Menu extends JFrame
     }
 
     public ArrayList<Queue<Item>> setPlayerArray(ArrayList<Queue<Item>> qList) {
+        qList.clear();
         for (int i = 0; i < 12; i++) {
             qList.add(fillQueue(new Queue<Item>()));
         }  
@@ -215,6 +215,7 @@ public class Menu extends JFrame
      */
     public Queue<Item> fillQueue(Queue<Item> q) //run fillItems before this
     {
+        q.clear();
         //Temp adding shit cuz procrastinate
         q.add(new Item("M&M's", new ImageIcon("images/mm.png"), 1.0, 2));
         q.add(new Item("Ruffles", new ImageIcon("images/Ruffles.png"), 1.75, 3));

@@ -401,9 +401,10 @@ public class VendingMachine extends JFrame
                 try {
                     FileInputStream fis = new FileInputStream(scores);
                     ObjectInputStream ois = new ObjectInputStream(fis);
+                    playerList.clear();
                     
                     //Add players from player.dat to playerList
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 3; i++) {
                         playerList.add((Player) ois.readObject()); //check player.dat size cause default max heap space is 316 MB .. just push to github i'll is check whats using so much memory tommorw
                         System.out.println("loop " + i + " in vm read");//for debugging 
                     }
@@ -423,7 +424,7 @@ public class VendingMachine extends JFrame
                 //Check if current players score is greater than the least
                     //if so, add it to hs
 
-                if (playerList.size() < 5) {
+                if (playerList.size() < 3) {
                     boolean added = false;
                     madeLeaderboard = true;
                     for (int i = 0; i < playerList.size(); i++) {
@@ -436,10 +437,10 @@ public class VendingMachine extends JFrame
                         playerList.add(activeUser);
                     }    
                 } else {
-                    if (playerList.get(4).getPlayerScore() < activeUser.getPlayerScore()) {
+                    if (playerList.get(2).getPlayerScore() < activeUser.getPlayerScore()) {
                         boolean added = false;
                         madeLeaderboard = true;
-                        playerList.remove(4);
+                        playerList.remove(2);
                         for (int i = 0; i < playerList.size(); i++) {
                             if (playerList.get(i).getPlayerScore() < activeUser.getPlayerScore()) {
                                 playerList.add(i, activeUser);
@@ -447,7 +448,7 @@ public class VendingMachine extends JFrame
                             }
                         }
                         if (!(added)) {
-                            playerList.add(4, activeUser);
+                            playerList.add(2, activeUser);
                         }
                     }
                 }
@@ -473,6 +474,7 @@ public class VendingMachine extends JFrame
                     } catch (Exception ex) {
                         System.err.println("Exception writing to hish scores");
                     }
+                    playerList.clear();
                 }
 
                 //Menu menu = new Menu();

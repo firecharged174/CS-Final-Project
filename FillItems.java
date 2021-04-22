@@ -51,6 +51,7 @@ public class FillItems implements Serializable
                     ObjectOutputStream fout = new ObjectOutputStream(fos);
                     fout.writeObject(item);
                     fout.close();
+                    fos.close();
                 } catch (FileNotFoundException ex) {
                     System.err.println("File not found in inner try block");
                 } catch (IOException ex) {
