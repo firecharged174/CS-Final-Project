@@ -116,6 +116,7 @@ import java.io.Serializable;
      * Clears the arraylist
      */
     public void clear() {
+        list = null;
         list = new Object[capacity];
         size = 0;
     }
