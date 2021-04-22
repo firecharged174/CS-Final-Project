@@ -404,9 +404,8 @@ public class VendingMachine extends JFrame
                     playerList.clear();
                     
                     //Add players from player.dat to playerList
-                    for (int i = 0; i < 3; i++) {
-                        playerList.add((Player) ois.readObject()); //check player.dat size cause default max heap space is 316 MB .. just push to github i'll is check whats using so much memory tommorw
-                        System.out.println("loop " + i + " in vm read");//for debugging 
+                    for (int i = 0; i < 5; i++) {
+                        playerList.add((Player) ois.readObject());
                     }
 
                     fis.close();
@@ -424,13 +423,15 @@ public class VendingMachine extends JFrame
                 //Check if current players score is greater than the least
                     //if so, add it to hs
 
-                if (playerList.size() < 3) {
+                if (playerList.size() < 5) { //allows duplicate names in hs
                     boolean added = false;
                     madeLeaderboard = true;
-                    for (int i = 0; i < playerList.size(); i++) {
+                    int size = playerList.size(); //using directly in loop causes infinite loop
+                    for (int i = 0; i < size; i++) {
                         if (playerList.get(i).getPlayerScore() < activeUser.getPlayerScore()) {
                             playerList.add(i, activeUser);
                             added = true;
+                            break;
                         }
                     }
                     if (!(added)) {
@@ -441,7 +442,8 @@ public class VendingMachine extends JFrame
                         boolean added = false;
                         madeLeaderboard = true;
                         playerList.remove(2);
-                        for (int i = 0; i < playerList.size(); i++) {
+                        int size = playerList.size(); //using directly in loop causes infinite loop
+                        for (int i = 0; i < size; i++) {
                             if (playerList.get(i).getPlayerScore() < activeUser.getPlayerScore()) {
                                 playerList.add(i, activeUser);
                                 added = true;
@@ -458,10 +460,12 @@ public class VendingMachine extends JFrame
                     try {
                         FileOutputStream fos = new FileOutputStream(scores);
                         ObjectOutputStream ois = new ObjectOutputStream(fos);
+                        System.out.println("in try");
 
                         for (int i = 0; i < playerList.size(); i++) {
-                            ois.writeObject(playerList.get(i));
-                            System.out.println("loop " + i + " in vm write");//for debugging
+                            Player temp = new Player(playerList.get(i).getPlayerName(), playerList.get(i).getPlayerScore());//create new player with name and score of activeuser
+                            ois.writeObject(temp);//fixes out of memory error
+                            temp = null;
                         }
                             
                         ois.close();
@@ -474,7 +478,7 @@ public class VendingMachine extends JFrame
                     } catch (Exception ex) {
                         System.err.println("Exception writing to hish scores");
                     }
-                    playerList.clear();
+                    playerList.clear();//reduce memory use
                 }
 
                 //Menu menu = new Menu();

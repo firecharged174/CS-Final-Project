@@ -35,6 +35,14 @@ public class Player implements Serializable
         this(DEFAULT_NAME, DEFAULT_CASH, DEFAULT_INVENTORY, DEFAULT_SLOTS, DEFAULT_SCORE);
     }
 
+    public Player(String name, int score) {// added to create player with just name and score for saving to player.dat for highscore
+        playerName = name;
+        playerScore = score;
+        playerInventory = null;
+        playerCash = 0;
+        vendingMachineSlots = null;
+    }
+
     public Player(String name, double money, ArrayList<Item> inventory, ArrayList<Queue<Item>> slots, int score) {
         playerName = name;
         playerCash = money;

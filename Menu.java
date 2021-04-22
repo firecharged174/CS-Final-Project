@@ -63,7 +63,7 @@ public class Menu extends JFrame
 
             //Get user name
             //Sets the name of the new player
-            player.setPlayerName(
+            player.setPlayerName( // allows name to be null
                 (String) JOptionPane.showInputDialog(
                     this, "Enter player name: "
                 )
@@ -176,12 +176,11 @@ public class Menu extends JFrame
                 FileInputStream fin = new FileInputStream(hs);
                 ObjectInputStream ois = new ObjectInputStream(fin);
                 
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 5; i++) {
                     Player test = (Player)ois.readObject();
                     String name = test.getPlayerName();
                     int score = test.getPlayerScore();
                     scores += ((i+1) + ". " + name + ": " + score + " points\n");
-                    System.out.println("loop " + i + " in menu");//for debugging 
                 }
                 ois.close();
                 fin.close();
