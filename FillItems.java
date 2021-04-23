@@ -22,6 +22,7 @@ public class FillItems implements Serializable
     {
         File items = new File("./util/items.txt");
         File file = new File("./util/items.dat");
+        ArrayList<Item> listOfItems = new ArrayList<>(21);
         
         try {
             //Fetch data from items.txt
@@ -45,21 +46,8 @@ public class FillItems implements Serializable
                 item.setIcon(icon);
                 item.setPoint(point);
 
-                //Write Object to items.dat
-                try {
-                    FileOutputStream fos = new FileOutputStream(file);
-                    ObjectOutputStream fout = new ObjectOutputStream(fos);
-                    fout.writeObject(item);
-                    fout.close();
-                    fos.close();
-                } catch (FileNotFoundException ex) {
-                    System.err.println("File not found in inner try block");
-                } catch (IOException ex) {
-                    System.err.println("IOException in inner try block");
-                    System.out.println("line " + i + " in items.txt- name: " + name + " price: " + price + " iconPath: " + iconPath);
-                } catch (Exception ex) {                                    
-                    System.err.println("Gener exception in inner try block");
-                }
+                listOfItems.add(item);
+
             }
 
             //Close the objects
@@ -68,6 +56,25 @@ public class FillItems implements Serializable
             System.err.println("File not here err");
         } catch (Exception ex) {
             System.err.println("General exception");
+        }
+
+        //Write Object to items.dat
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream fout = new ObjectOutputStream(fos);
+
+            for (int i = 0; i < 20; i++) {
+                fout.writeObject(listOfItems.get(i));
+            }
+
+            fout.close();
+            fos.close();
+        } catch (FileNotFoundException ex) {
+            System.err.println("File not found in write try block");
+        } catch (IOException ex) {
+            System.err.println("IOException in write try block");
+        } catch (Exception ex) {                                    
+            System.err.println("Gener exception in write try block");
         }
     }
 }
