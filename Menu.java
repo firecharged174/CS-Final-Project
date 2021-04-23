@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import javax.swing.*;
 import java.io.EOFException;
+import java.awt.Color;
 
 /**
  * Menu.java
@@ -32,13 +33,12 @@ public class Menu extends JFrame
      * Cotains the start, highscores, about, and exit buttons. 
      */
     Menu() 
-    {
-        //login = new Login(this);
-        
+    {        
         // Creates new buttons for the frame //
         //High scores button
         highScoresButton = new JButton("High Scores");
-        highScoresButton.setBounds(75, 50, 100, 30); //bounds
+        highScoresButton.setBounds(62, 50, 120, 30); //bounds
+        highScoresButton.setBackground(Color.ORANGE);
         highScoresButton.addActionListener((e) -> {
 
             JOptionPane.showMessageDialog(
@@ -48,49 +48,44 @@ public class Menu extends JFrame
                 JOptionPane.PLAIN_MESSAGE
             );
 
-            //Creates an instane of a login frame
-            //login.setVisible(true);
-            //this.setVisible(false);
-
         });
 
         //Start button, duh
         startButton = new JButton("Start");
-        startButton.setBounds(75, 100, 100, 30);
+        startButton.setBounds(62, 100, 120, 30);
+        startButton.setBackground(Color.GREEN);
         startButton.addActionListener((e) -> {
 
-            player = new Player();
+            String name;
 
             //Get user name
-            //Sets the name of the new player
-            player.setPlayerName( // allows name to be null
-                (String) JOptionPane.showInputDialog(
-                    this, "Enter player name: "
-                )
-            );
-
+            //Sets the name of the new player - if no input, setPlayerName to default
+            
+            name = ((String) JOptionPane.showInputDialog(
+                this, "Enter player name: "
+            ));
+            
+            player = new Player();
+            if (name.equals("")) {
+            } else if (name == null) {
+            } else if (name.trim().isEmpty()) {//if name is all spaces
+            } else {
+                player.setPlayerName(name);
+            }
+            
             //Sets the money of the new user
-            player.setPlayerCash((int)(Math.random()*101)); //rand int btwn 10 and 100 [Math.random() * (max-min+1) + min]
+            player.setPlayerCash((int)(Math.random()*41 + 10)); //rand int btwn 10 and 50 [Math.random() * (max-min+1) + min]
 
             //Fill queues and add to arraylist of queues of item objects
             player.setVendingMachineSlots(setPlayerArray(queueList)); 
 
-
-
-            /** 
-            // Check for active user
-            if (login.getLoggedIn() == false || login.getActiveUser() == null) {
-                JOptionPane.showMessageDialog (
-                    null, 
-                    "Please login to play the game.", 
-                    "Error", 
-                    JOptionPane.CLOSED_OPTION
-                );
-                return;
-            }
-            */
-
             setPlayer(player);
+
+            //Welcome message
+            JOptionPane.showMessageDialog(
+                this,
+                "Hello, " + player.getPlayerName() + ", and welcome to the Vending Machine!\nYou have a balance of $" + player.getPlayerCash() + "\nGood luck!"
+            );
             
             //Starts the game
             vm = new VendingMachine(this);
@@ -101,12 +96,13 @@ public class Menu extends JFrame
 
         //About button displays how to play the game
         aboutButton = new JButton("About");
-        aboutButton.setBounds(75, 150, 100, 30);
+        aboutButton.setBounds(62, 150, 120, 30);
+        aboutButton.setBackground(Color.MAGENTA);
         aboutButton.addActionListener((e) -> {
 
             JOptionPane.showMessageDialog(
                 this, 
-                "Vending Machine Simulator\n\nMade by:\n•Zane Yankalunas\n•Cory Berger\n•Avin Patel\n\nHow to play:\nStart by logging in or creating a new account.\nStarting the game will generate or load a custom vending machine and a random amount of money.\nUse your momey to buy things by clicking on the images.\nCheck your wallet and invetory at any time by clicking 'Backpack'\n\nSubscribe",
+                "Vending Machine Simulator\n\nMade by:\n-Zane Yankalunas\n-Cory Berger\n-Avin Patel\n\nHow to play:\nStart by logging in or creating a new account.\nStarting the game will generate or load a custom vending machine and a random amount of money.\nUse your momey to buy things by clicking on the images.\nCheck your wallet and invetory at any time by clicking 'Backpack'\n\nSubscribe",
                 "About",
                 JOptionPane.CLOSED_OPTION
             );
@@ -115,7 +111,8 @@ public class Menu extends JFrame
 
         //Exit button, to exit the game. What else would it do
         exitButton = new JButton("Exit");
-        exitButton.setBounds(75, 200, 100, 30);
+        exitButton.setBounds(62, 200, 120, 30);
+        exitButton.setBackground(Color.RED);
         exitButton.addActionListener((e) -> {
 
             //Confirm button before exiting
@@ -128,10 +125,9 @@ public class Menu extends JFrame
 
             if (response == JOptionPane.YES_OPTION) {
                 //Exits the game
-                System.out.println("Exiting game...");
                 
                 //Thank you message
-                JOptionPane.showMessageDialog(  //Thank you message
+                JOptionPane.showMessageDialog( 
                     this, 
                     "Thank you for shopping!\nCome again soon!", 
                     "Goodbye", 
@@ -139,7 +135,6 @@ public class Menu extends JFrame
                 );
                 System.exit(1);
             } else {
-                System.out.println("Canceling exit call...");
             }
 
         });
@@ -148,7 +143,7 @@ public class Menu extends JFrame
 
         // Creates the frame
         this.setTitle("Menu");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setSize(250, 350);
         this.setResizable(false);
         this.setLayout(null);
@@ -160,7 +155,6 @@ public class Menu extends JFrame
         this.add(highScoresButton);
         this.add(aboutButton);
         this.add(exitButton);
-        //this.add(playerLabel);
     } 
 
     /**
@@ -215,11 +209,33 @@ public class Menu extends JFrame
     public Queue<Item> fillQueue(Queue<Item> q) //run fillItems before this
     {
         q.clear();
-        //Temp adding shit cuz procrastinate
-        q.add(new Item("M&M's", new ImageIcon("images/mm.png"), 1.0, 2));
-        q.add(new Item("Ruffles", new ImageIcon("images/Ruffles.png"), 1.75, 3));
-        q.add(new Item("Twix", new ImageIcon("images/Twix.png"), 1.25, 2));
-        q.add(new Item("Snickers", new ImageIcon("images/Snickers.png"), 1.25, 2));
+
+        File file = new File("util/items.dat"); 
+        ArrayList<Item> listOfItems = new ArrayList<Item>(20); 
+        try {
+            FileInputStream fin = new FileInputStream(file);
+            ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(file));
+
+            for (int i = 0; i < 20; i++) {
+                listOfItems.add((Item) objIn.readObject());
+            }
+
+            objIn.close();
+            fin.close();
+        } catch (FileNotFoundException ex) {
+            System.err.println("No file for queues to fill from.");
+        } catch (EOFException ex) {
+            System.err.println("End of Line Error... No more to read");
+        } catch (IOException ex) {
+            System.err.println("IOException filling queues");
+        } catch (Exception ex) {
+            System.err.println("Exception queue fill");
+        }
+
+        for (int i = 0; i < ((int)((Math.random() * 8) + 3)); i++) {          //makes queues of size 3 to queues of size 8 randomly
+            q.add(listOfItems.get((int)(Math.random() * listOfItems.size())));
+        }
+        
         q.add(new Item("SOLD OUT!", new ImageIcon("images/sold_out.png"), 1000, 0));
 
         //Return the queue

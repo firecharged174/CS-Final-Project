@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import javax.swing.*;
 import java.io.EOFException;
+import java.awt.Image;
 
 /**
  * VendingMachine.java
@@ -78,46 +79,38 @@ public class VendingMachine extends JFrame
         // Button for slot A1
         a1 = new JButton();
         a1.setName("A1");
-        a1.setBounds(x, y, width, height); //x, y, w, h
-        a1.setIcon(queue_a1.peek().getIcon());
+        a1.setBounds(x, y, width, height); //x, y, w, h 
+        a1.setIcon(new ImageIcon(queue_a1.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         a1.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase " + queue_a1.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_a1.peek().getName(), queue_a1.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
 
-            if(response == JOptionPane.YES_OPTION) {
-                System.out.println("*A1* selected"); 
-                
-                updateButton(a1, queue_a1);//if this works uncomment the rest
-            } else {
-                System.out.println("Selection canceled"); //debug
-            }
+            if(response == JOptionPane.YES_OPTION) {                
+                updateButton(a1, queue_a1);
+            } 
         }); 
 
         //Button for slot A2
         a2 = new JButton();
         a2.setName("A2");
         a2.setBounds(300, y, width, height);
-        a2.setIcon(queue_a2.peek().getIcon());
+        a2.setIcon(new ImageIcon(queue_a2.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         a2.addActionListener((e) -> {
             //Confirm button
             response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase" + queue_a2.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_a2.peek().getName(), queue_a2.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
 
             if(response == JOptionPane.YES_OPTION) {
-                System.out.println("*A2* selected"); 
-
                 updateButton(a2, queue_a2);
-            } else {
-                System.out.println("Selection canceled");
             }
 
         });
@@ -126,23 +119,19 @@ public class VendingMachine extends JFrame
         a3 = new JButton();
         a3.setName("A3");
         a3.setBounds(500, y, width, height);
-        a3.setIcon(queue_a3.peek().getIcon());
+        a3.setIcon(new ImageIcon(queue_a3.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         a3.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase" + queue_a3.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_a3.peek().getName(), queue_a3.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
 
             if(response == JOptionPane.YES_OPTION) {
-                System.out.println("*A3* selected"); 
-
                 updateButton(a3, queue_a3);
-            } else {
-                System.out.println("Selection canceled");
-            }
+            } 
 
         });
 
@@ -153,22 +142,18 @@ public class VendingMachine extends JFrame
         b1 = new JButton();
         b1.setName("B1");
         b1.setBounds(100, 225, width, height);
-        b1.setIcon(queue_b1.peek().getIcon());
+        b1.setIcon(new ImageIcon(queue_b1.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         b1.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase" + queue_b1.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_b1.peek().getName(), queue_b1.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
             if (response == JOptionPane.YES_OPTION) {
-                System.out.println("*B1* selected");
-
                 updateButton(b1, queue_b1);
-            } else {
-                System.out.println("Selection canceled");
-            }
+            } 
 
         });
 
@@ -176,22 +161,18 @@ public class VendingMachine extends JFrame
         b2 = new JButton();
         b2.setName("B2");
         b2.setBounds(300, 225, width, height);
-        b2.setIcon(queue_b2.peek().getIcon());
+        b2.setIcon(new ImageIcon(queue_b2.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         b2.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase" + queue_b2.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_b2.peek().getName(), queue_b2.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
             if (response == JOptionPane.YES_OPTION) {
-                System.out.println("*B2* selected");
-
                 updateButton(b2, queue_b2);
-            } else {
-                System.out.println("Selection canceled");
-            }
+            } 
 
         });
 
@@ -199,22 +180,18 @@ public class VendingMachine extends JFrame
         b3 = new JButton();
         b3.setName("B3");
         b3.setBounds(500, 225, width, height);
-        b3.setIcon(queue_b3.peek().getIcon());
+        b3.setIcon(new ImageIcon(queue_b3.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         b3.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase" + queue_b3.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_b3.peek().getName(), + queue_b3.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
             if (response == JOptionPane.YES_OPTION) {
-                System.out.println("*B3* selected"); 
-
                 updateButton(b3, queue_b3);
-            } else {
-                System.out.println("Selection canceled");
-            }
+            } 
 
         });
 
@@ -226,22 +203,18 @@ public class VendingMachine extends JFrame
         c1 = new JButton();
         c1.setName("C1");
         c1.setBounds(x, 350, width, height);
-        c1.setIcon(queue_c1.peek().getIcon());
+        c1.setIcon(new ImageIcon(queue_c1.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         c1.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase" + queue_c1.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_c1.peek().getName(), queue_c1.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
             if (response == JOptionPane.YES_OPTION) {
-                System.out.println("*C1* selected"); 
-
                 updateButton(c1, queue_c1);
-            } else {
-                System.out.println("Selection canceled");
-            }
+            } 
 
         });
 
@@ -249,22 +222,18 @@ public class VendingMachine extends JFrame
         c2 = new JButton();
         c2.setName("C2");
         c2.setBounds(300, 350, width, height);
-        c2.setIcon(queue_c2.peek().getIcon());
+        c2.setIcon(new ImageIcon(queue_c2.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         c2.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase" + queue_c2.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_c2.peek().getName(), queue_c2.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
             if (response == JOptionPane.YES_OPTION) {
-                System.out.println("*C2* selected"); 
-
                 updateButton(c2, queue_c2);
-            } else {
-                System.out.println("Selection canceled");
-            }
+            } 
 
         });
 
@@ -272,22 +241,18 @@ public class VendingMachine extends JFrame
         c3 = new JButton();
         c3.setName("c3");
         c3.setBounds(500, 350, width, height);
-        c3.setIcon(queue_c3.peek().getIcon());
+        c3.setIcon(new ImageIcon(queue_c3.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         c3.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase" + queue_c3.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_c3.peek().getName(), queue_c3.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
             if (response == JOptionPane.YES_OPTION) {
-                System.out.println("*C3* selected"); 
-
                 updateButton(c3, queue_c3);
-            } else {
-                System.out.println("Selection canceled");
-            }
+            } 
 
         });
 
@@ -295,21 +260,17 @@ public class VendingMachine extends JFrame
         d1 = new JButton();
         d1.setName("D1");
         d1.setBounds(x, 475, width, height);
-        d1.setIcon(queue_d1.peek().getIcon());
+        d1.setIcon(new ImageIcon(queue_d1.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         d1.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase" + queue_d1.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_d1.peek().getName(), queue_d1.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
             if (response == JOptionPane.YES_OPTION) {
-                System.out.println("*D1* selected"); 
-
                 updateButton(d1, queue_d1);
-            } else {
-                System.out.println("Selection canceled");
             }
 
         });
@@ -318,22 +279,18 @@ public class VendingMachine extends JFrame
         d2 = new JButton();
         d2.setName("D2");
         d2.setBounds(300, 475, width, height);
-        d2.setIcon(queue_d2.peek().getIcon());
+        d2.setIcon(new ImageIcon(queue_d2.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         d2.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase" + queue_d2.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_d2.peek().getName(), queue_d2.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
             if (response == JOptionPane.YES_OPTION) {
-                System.out.println("*D2* selected"); 
-
                 updateButton(d2, queue_d2);
-            } else {
-                System.out.println("Selection canceled");
-            }
+            } 
 
         });
 
@@ -341,21 +298,17 @@ public class VendingMachine extends JFrame
         d3 = new JButton();
         d3.setName("D3");
         d3.setBounds(500, 475, width, height);
-        d3.setIcon(queue_d3.peek().getIcon());
+        d3.setIcon(new ImageIcon(queue_d3.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         d3.addActionListener((e) -> {
             //Confirm button
             int response = JOptionPane.showConfirmDialog(
                 this, 
-                "Are you sure you would like to purchase" + queue_d3.peek().getName() + "?",
+                String.format("Are you sure you would like to purchase %s for $%.2f?", queue_d3.peek().getName(), queue_d3.peek().getPrice()),
                 "Confirm", 
                 JOptionPane.YES_NO_OPTION
             );
             if (response == JOptionPane.YES_OPTION) {
-                System.out.println("*D3* selected"); 
-
                 updateButton(d3, queue_d3);
-            } else {
-                System.out.println("Selection canceled");
             }
 
         });
@@ -377,7 +330,6 @@ public class VendingMachine extends JFrame
 
             if(response == JOptionPane.YES_OPTION) {
                 //Exits the game
-                System.out.println("Exiting game..."); 
                 JOptionPane.showMessageDialog(
                     this, 
                     "Thank you for shopping!\nCome again soon!", 
@@ -438,19 +390,20 @@ public class VendingMachine extends JFrame
                         playerList.add(activeUser);
                     }    
                 } else {
-                    if (playerList.get(2).getPlayerScore() < activeUser.getPlayerScore()) {
+                    if (playerList.get(4).getPlayerScore() < activeUser.getPlayerScore()) {
                         boolean added = false;
                         madeLeaderboard = true;
-                        playerList.remove(2);
+                        playerList.remove(4);
                         int size = playerList.size(); //using directly in loop causes infinite loop
                         for (int i = 0; i < size; i++) {
                             if (playerList.get(i).getPlayerScore() < activeUser.getPlayerScore()) {
                                 playerList.add(i, activeUser);
                                 added = true;
+                                break;
                             }
                         }
                         if (!(added)) {
-                            playerList.add(2, activeUser);
+                            playerList.add(4, activeUser);
                         }
                     }
                 }
@@ -460,7 +413,6 @@ public class VendingMachine extends JFrame
                     try {
                         FileOutputStream fos = new FileOutputStream(scores);
                         ObjectOutputStream ois = new ObjectOutputStream(fos);
-                        System.out.println("in try");
 
                         for (int i = 0; i < playerList.size(); i++) {
                             Player temp = new Player(playerList.get(i).getPlayerName(), playerList.get(i).getPlayerScore());//create new player with name and score of activeuser
@@ -485,8 +437,6 @@ public class VendingMachine extends JFrame
                 menu.setVisible(true);
                 this.dispose(); //closes it
             } else {
-                
-                System.out.println("Canceling exit call...");
             }
         });
 
@@ -504,17 +454,16 @@ public class VendingMachine extends JFrame
                     JOptionPane.CLOSED_OPTION
                 );
             } 
-                
             JOptionPane.showMessageDialog(
                 this, 
-                activeUser.getPlayerName() + "'s Backpack\nCash: $" + activeUser.getPlayerCash() + "\nInventory: " + activeUser.getPlayerInventory() + "\nScore: " + activeUser.getPlayerScore()
+                activeUser.getPlayerName() + "'s Backpack\nCash: $" + activeUser.getPlayerCash() + "\nInventory: " + printInventory(activeUser.getPlayerInventory()) + "\nScore: " + activeUser.getPlayerScore()
             );
 
         });
 
         // Creates the frame for the game
         this.setTitle("Vending Machine Simulator"); //this sets title of frame
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit out of application //do_nothing_on_close
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //exit out of application of that doesnt work do donothing onclose
         this.setResizable(false); //prevent frame from being resized
         this.setSize(690, 690); //sets the x and y dimension 
         this.setLayout(null);   //sets the layout
@@ -554,22 +503,22 @@ public class VendingMachine extends JFrame
                 JOptionPane.showMessageDialog(
                     null, "You do not have enough money to purchase this.", "Warning", JOptionPane.ERROR_MESSAGE
                 );
-            } else {//this was missing which is why it let you but without having enough money
+            } else {
                 activeUser.setPlayerCash(activeUser.getPlayerCash() - queue.peek().getPrice());
                 //Update score
                 activeUser.setPlayerScore(activeUser.getPlayerScore() + queue.peek().getPoint()); //adds current to
-                System.out.println("Current playerScore while in VM: " + activeUser.getPlayerScore());
                 //Remove from queue
                 inventory.add(queue.poll());
                 //Update queue, and arraylist for the player
                 activeUser.setPlayerInventory(inventory);
                 //Display new item
-                button.setIcon(queue.peek().getIcon());
-                //button.setText(queue.peek().getName());
+                button.setIcon((new ImageIcon(queue.peek().getIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH))));
             }
+        } else {  //if queue.size() = 1, means SOLD OUT since sold out item is last item
+            JOptionPane.showMessageDialog(
+                null, "SOLD OUT", "Warning", JOptionPane.ERROR_MESSAGE
+            );
         }
-        //debug
-        System.out.println("Button " + button.getName() + " is empty");
     }
 
     /**
@@ -588,5 +537,18 @@ public class VendingMachine extends JFrame
         queue_d1 = list.get(9);
         queue_d2 = list.get(10);
         queue_d3 = list.get(11);
+    }
+
+    /**
+     * Prints the players inventory
+     * @param list - arrayList of items that the player has
+     * @return inventory - String that holds the inventory
+     */
+    public String printInventory(ArrayList<Item> list) {
+        String inventory = "";
+            for (Item i: list) {
+                inventory += i.getName() + ", ";
+            }
+        return inventory;
     }
 }

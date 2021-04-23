@@ -18,7 +18,7 @@ public class Queue<T> implements Serializable
     private int capacity;  //max capacity of queue
     private int first; // front of queue
     private int last;   //end of queue
-    private static final int DEFAULT_CAPACITY = 8;
+    private static final int DEFAULT_CAPACITY = 20;
 
     /**
      * Default constructor
@@ -54,7 +54,7 @@ public class Queue<T> implements Serializable
      * @return true if successful
      */
     public boolean add(T obj) {
-        if (size == capacity-1) {
+        if (size == capacity-2) {
             resizeArray(capacity*2);
         }
         queue[last] = obj;
@@ -156,5 +156,4 @@ public class Queue<T> implements Serializable
         last = size;
         capacity = newCapacity;
     }    
-    // We can do this using arrays or linkedlist ... arrayqueue or linkedqueue 
 }
